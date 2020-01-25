@@ -10,6 +10,7 @@ struct Monstre
     int degats;
     int resistance;
     int poison;
+    int agro;
 };
 
 typedef struct Monstre monstre;
@@ -87,6 +88,8 @@ void actionPerso(perso *perso, monstre *monstre, struct Perso tPerso[])
         //tank
         if (perso->id == 3)
         {
+            monstre->agro = 1;
+            printf("alfred agro le tank %d", monstre->agro);
         }
     }
 }
@@ -97,7 +100,7 @@ int main()
     int monstreChoisi;
     int persoChoisi;
 
-    monstre alfred = {100, 20, 2, 1, 0};
+    monstre alfred = {100, 20, 2, 1, 0, 0};
 
     //Creation Perso
 
@@ -129,17 +132,18 @@ int main()
         }
 
         //tour de jeu pour chaque perso
-        //printf("\nVous jouez le mage :\nPV : %d\nPM : %d\nDegats :%d\nResistance :%d\nAction speciale : soin\n", mage.life, mage.pm, mage.degat, mage.resistance);
-        //actionPerso(&tPerso[0], &alfred, tPerso);
+        printf("\nVous jouez le mage :\nPV : %d\nPM : %d\nDegats :%d\nResistance :%d\nAction speciale : soin\n", mage.life, mage.pm, mage.degat, mage.resistance);
+        actionPerso(&tPerso[0], &alfred, tPerso);
         printf("\nVous jouez l'archer :\nPV : %d\nPM : %d\nDegats :%d\nResistance :%d\nAction speciale : fleche empoisonnes\n", archer.life, archer.pm, archer.degat, archer.resistance);
         actionPerso(&tPerso[1], &alfred, tPerso);
-        //printf("\nVous jouez le tank :\nPV : %d\nPM : %d\nDegats :%d\nResistance :%d\nAction speciale : agro\n", tank.life, tank.pm, tank.degat, tank.resistance);
-        //actionPerso(&tPerso[2], &alfred, tPerso);
+        printf("\nVous jouez le tank :\nPV : %d\nPM : %d\nDegats :%d\nResistance :%d\nAction speciale : agro\n", tank.life, tank.pm, tank.degat, tank.resistance);
+        actionPerso(&tPerso[2], &alfred, tPerso);
 
         //Une fois le tour terminer
         mage.resistance = 1;
         archer.resistance = 1;
         tank.resistance = 2;
+        alfred.agro = 0;
     }
     return 0;
 }
